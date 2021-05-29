@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../../_actions/user_actions";
 
-function LoginPage() {
+function LoginPage(props) {
   const dispatch = useDispatch();
   // email을 위한 state
   const [Email, setEmail] = useState("");
@@ -11,11 +11,11 @@ function LoginPage() {
 
   // input의 내용을 입력할 수 있게
   const onEmailHandler = (event) => {
-    setEmail(event.currentTarget.value);
+    setEmail(event.target.value);
   };
 
   const onPasswordHandler = (event) => {
-    setPassword(event.currentTarget.value);
+    setPassword(event.target.value);
   };
 
   const onSubmitHandler = (event) => {
@@ -28,7 +28,14 @@ function LoginPage() {
       password: Password,
     };
 
-    dispatch(loginUser(body));
+    dispatch(loginUser(body))
+        .then(response => {
+            if(response.payload.loginSuccess) {
+                props.history.push('/');
+            } else {
+                alert('Error')
+            }
+        })
   };
 
   return (
