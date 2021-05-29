@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+//import 'antd/dis/antd.css';
+// react와 redux를 연결해주기 위해 Provider
 import { Provider } from 'react-redux';
-// css framework
-import 'antd/dis/antd.css';
+// store가 function과 promise를 처리할수 있게 임포트해온다.
 import { applyMiddleware, createStore } from 'redux';
 import promiseMiddleware from 'redux-promise';
 import ReduxThunk from 'redux-thunk';
@@ -17,15 +18,14 @@ const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)
 
 ReactDOM.render(
   <Provider
-    store={createStoreWithMiddleware(Reducer,
-      window.__REDUX_DEVTOOLS_EXTENSION__ &&
-      window.__REDUX_DEVTOOLS_EXTENSION__()}
-  >
-    <App />
-  </Provider>
-    
-  //</React.StrictMode>,
-  , document.getElementById('root'));
+        store={createStoreWithMiddleware(Reducer,
+            window.__REDUX_DEVTOOLS_EXTENSION__ &&
+            window.__REDUX_DEVTOOLS_EXTENSION__()
+        )}
+    >
+        <App />
+    </Provider>
+    , document.getElementById('root'));
 
 
 reportWebVitals();
